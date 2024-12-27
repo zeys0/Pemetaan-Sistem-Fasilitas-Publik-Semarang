@@ -39,6 +39,17 @@
     color: rgba(0, 0, 0, 1);/* Saat scrolled */
 }
 
+.navbar-nav .nav-link {
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: white;
+    /* Change color on hover */
+    transform: translateY(-5px);
+    /* Hover effect - move the link slightly up */
+}
+
 
 /* Hamburger */
 

@@ -45,6 +45,11 @@ def home():
     return render_template("main/home.html", enable_scroll_nav=False)
 
 
+@app.route("/login")
+def login():
+    return render_template("login/login.html")
+
+
 @app.route("/map", methods=["GET", "POST"])
 def map():
     if request.method == "POST":
