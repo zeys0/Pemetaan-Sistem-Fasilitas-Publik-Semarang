@@ -13,6 +13,19 @@
     -webkit-text-fill-color: transparent;
   }
 
+  .orange-text {
+    color: #ff8721;
+    font-weight: bold;
+  }
+  
+  .blue-text {
+    color: #5e1ed3;
+    font-weight: bold;
+  }
+  
+  
+  
+
 /* Default Navbar (Transparan) */
 .navbar {
     background-color: transparent;
@@ -22,7 +35,7 @@
 
 /* Navbar Saat Scroll atau Halaman dengan enable_scroll_nav = false */
 .navbar-scrolled {
-    background-color: #5866ec;
+    background-color: rgb(88, 102, 236);
     backdrop-filter: blur(10px);
     box-shadow:white;
 }
