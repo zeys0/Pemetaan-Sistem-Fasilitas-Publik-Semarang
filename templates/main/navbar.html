@@ -1,0 +1,68 @@
+<style>
+    .roboto-light {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .monotype {
+        font-family: 'Monotype Corsiva';
+        font-size: larger;
+        color: seashell
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg fixed-top roboto-light {% if not enable_scroll_nav %}navbar-scrolled{% endif %}"
+    id="mainNav">
+
+    <div class="container">
+        <a class="navbar-brand" href="#page-top">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" style="height: 50px" alt="..." />
+            <span class="monotype">SIG</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navigation navbar-nav nav-underline menu ms-auto py-4 py-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/map">Map</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+<script>
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        const enableScrollNav = {{ enable_scroll_nav | tojson
+    }};
+    let navbar = $('#mainNav')
+
+    if (enableScrollNav) {
+        $(window).on("scroll", function () {
+            if (window.scrollY > 50) {
+                $(navbar).addClass('navbar-scrolled')
+            } else {
+                $(navbar).removeClass('navbar-scrolled')
+            }
+        })
+    }
+    });
+
+
+
+</script>

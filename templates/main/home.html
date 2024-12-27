@@ -1,0 +1,87 @@
+{% extends "main/base.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block header %}
+<!-- header -->
+
+
+
+
+<!-- HEADER -->
+
+<header class="position-relative" style="height: 100vh; background:#5866ec; color: white; overflow: hidden;">
+  <div class="container py-5 d-flex flex-column flex-lg-row align-items-center justify-content-between h-100">
+    <!-- Text Section -->
+    <div class="text-center text-lg-start">
+      <h1 class="display-3 fw-bold mb-3">Sistem Pemetaan <span class="d-block">Fasilitas Umum Semarang</span></h1>
+      <p class="lead mb-4">
+        Dapatkan informasi terkini tentang fasilitas umum di Semarang, termasuk lokasi, layanan,
+        dan aksesibilitas untuk kebutuhan Anda.
+      </p>
+
+      <!-- Search Bar Section -->
+      <div class="d-flex justify-content-center justify-content-lg-start gap-3 mb-4">
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <select class="form-control">
+              <option value="">Pilih Kategori</option>
+              <option value="kesehatan">Fasilitas Kesehatan</option>
+              <option value="pendidikan">Fasilitas Pendidikan</option>
+              <option value="transportasi">Fasilitas Transportasi</option>
+              <option value="keamanan">Fasilitas Keamanan</option>
+              <option value="pelayanan_umum">Fasilitas Pelayanan Umum</option>
+              <option value="hiburan_olahraga">Fasilitas Hiburan dan Olahraga</option>
+            </select>
+          </div>
+
+          <div class="input-group-append">
+            <button class="btn btn-primary px-4 shadow">Cari</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Image Section (Added to balance the layout) -->
+    <div class="d-none d-lg-block">
+      <img src="{{ url_for('static', filename='images/img1.png') }}" alt="Fasilitas Umum" class="img-fluid" />
+    </div>
+  </div>
+
+  <!-- Wave SVG -->
+  <div class="position-absolute bottom-0 start-0 w-100">
+    <svg class="w-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z"
+        fill="white"></path>
+    </svg>
+  </div>
+</header>
+
+
+<!-- END HEADER -->
+
+
+<!-- Section preview map -->
+<section class="container">
+
+  <div>
+    <div class="text-center">
+      <h1>Map Preview</h1>
+    </div>
+    <div id="map-container">
+      <iframe src="{{ url_for('static', filename='preview/preview_map.html') }}" width="100%" height="500">
+    </div>
+  </div>
+  </iframe>
+
+</section>
+<!-- End Section preview map -->
+
+
+
+
+
+
+<!--akhir headeer-->
+{% endblock %}

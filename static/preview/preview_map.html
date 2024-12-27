@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_bdc1d2e45cae0f07fa32004ba9c9f81a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_bdc1d2e45cae0f07fa32004ba9c9f81a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_bdc1d2e45cae0f07fa32004ba9c9f81a = L.map(
+                "map_bdc1d2e45cae0f07fa32004ba9c9f81a",
+                {
+                    center: [-7.011374, 110.395078],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_73082532aff47c31729c67822cac018a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+        function geo_json_c496bb69d6cd819407698da08813d2c7_styler(feature) {
+            switch(feature.properties.mhid) {
+                default:
+                    return {"color": "black", "fillOpacity": 0.5, "weight": 2};
+            }
+        }
+
+        function geo_json_c496bb69d6cd819407698da08813d2c7_onEachFeature(feature, layer) {
+            layer.on({
+            });
+        };
+        var geo_json_c496bb69d6cd819407698da08813d2c7 = L.geoJson(null, {
+                onEachFeature: geo_json_c496bb69d6cd819407698da08813d2c7_onEachFeature,
+            
+                style: geo_json_c496bb69d6cd819407698da08813d2c7_styler,
+            ...{
+}
+        });
+
+        function geo_json_c496bb69d6cd819407698da08813d2c7_add (data) {
+            geo_json_c496bb69d6cd819407698da08813d2c7
+                .addData(data);
+        }
+            geo_json_c496bb69d6cd819407698da08813d2c7_add({"features": [{"geometry": {"coordinates": [[[[110.4632125, -6.9315276], [110.466568, -6.934329], [110.4693375, -6.9388618], [110.4734039, -6.9420852], [110.4809418, -6.945363], [110.4863622, -6.9467563], [110.4922016, -6.9474909], [110.4901123, -6.9534726], [110.4909768, -6.9552195], [110.5010042, -6.9526219], [110.5028076, -6.9588666], [110.5011673, -6.9627976], [110.5028512, -6.9690027], [110.5048979, -6.9703826], [110.5053578, -6.975974], [110.5037348, -6.9790292], [110.5021958, -6.9792243], [110.5013411, -6.9849819], [110.5029831, -6.9858131], [110.5012078, -6.9922342], [110.4995602, -6.9922325], [110.4969854, -6.9951205], [110.4954945, -6.9989332], [110.4933639, -6.9996937], [110.4903852, -7.0043479], [110.4985392, -7.0076489], [110.503883, -7.0107245], [110.5028996, -7.0125701], [110.5037495, -7.0148595], [110.5007908, -7.0169853], [110.4994863, -7.0163984], [110.4978302, -7.0207875], [110.4986358, -7.022737], [110.4979926, -7.0271221], [110.4958403, -7.0274461], [110.4940414, -7.0302357], [110.4874131, -7.0290052], [110.4874354, -7.0310586], [110.4851729, -7.0379976], [110.4839085, -7.0398797], [110.4825222, -7.0453547], [110.4829155, -7.0483196], [110.4853058, -7.0495872], [110.4859619, -7.0522008], [110.4811706, -7.0530162], [110.4812622, -7.0567145], [110.4855194, -7.055109], [110.4866791, -7.0501442], [110.4909973, -7.0552563], [110.4909363, -7.0593891], [110.4921341, -7.0609589], [110.4961929, -7.0635414], [110.498848, -7.0631184], [110.4999313, -7.0659642], [110.4974823, -7.0693474], [110.4912338, -7.0741605], [110.4892349, -7.0773167], [110.4846802, -7.0812816], [110.4775848, -7.0854339], [110.4769134, -7.0837836], [110.4678269, -7.0793528], [110.4648971, -7.0800209], [110.4618759, -7.079186], [110.4542994, -7.0788178], [110.4535447, -7.087071], [110.4519213, -7.0900733], [110.4494782, -7.0891137], [110.4463176, -7.0907338], [110.4409256, -7.0912666], [110.4390793, -7.0906377], [110.4357147, -7.0915947], [110.4286804, -7.0920482], [110.4230957, -7.0962877], [110.4219589, -7.0981507], [110.421875, -7.1031627], [110.4191589, -7.1050448], [110.4161912, -7.1083688], [110.412925, -7.1082446], [110.4098618, -7.1100918], [110.4079054, -7.109056], [110.4029727, -7.1124001], [110.4015662, -7.1097581], [110.3956709, -7.1144322], [110.3899337, -7.1124762], [110.3842316, -7.1140637], [110.3817119, -7.1106878], [110.3774872, -7.1104345], [110.3764104, -7.1073032], [110.3783214, -7.1044095], [110.3784713, -7.1005792], [110.374971, -7.0964285], [110.3737325, -7.0984956], [110.3728547, -7.1027075], [110.3737061, -7.1048165], [110.3710791, -7.1075076], [110.3648526, -7.1063708], [110.3635958, -7.1047161], [110.3600438, -7.1047119], [110.3561247, -7.1065657], [110.3544729, -7.1056258], [110.3532746, -7.1022704], [110.3519771, -7.1018215], [110.35111, -7.0976506], [110.3474426, -7.0902729], [110.3478561, -7.0885164], [110.3443394, -7.0877912], [110.3427031, -7.0905802], [110.3448493, -7.097032], [110.3428421, -7.0994544], [110.3387375, -7.101809], [110.3374329, -7.1040849], [110.3327026, -7.1035194], [110.3325653, -7.0997367], [110.3284917, -7.1022006], [110.324585, -7.1014414], [110.3170478, -7.1057778], [110.3159536, -7.1047418], [110.3124619, -7.1055298], [110.3102493, -7.1030202], [110.3050776, -7.1014118], [110.3033295, -7.0970611], [110.3037121, -7.0921972], [110.3051148, -7.0896025], [110.3044205, -7.0834651], [110.302742, -7.0811324], [110.3029175, -7.0768638], [110.3007355, -7.0723719], [110.3011551, -7.0680847], [110.2991486, -7.0674066], [110.3006897, -7.0645289], [110.2986755, -7.0616846], [110.2953415, -7.0593381], [110.2937393, -7.0563841], [110.292717, -7.0520158], [110.2874298, -7.0506], [110.2853546, -7.0518965], [110.2831574, -7.049366], [110.2810974, -7.0500688], [110.2748762, -7.0487248], [110.2736737, -7.0502477], [110.2709725, -7.0507127], [110.2691269, -7.0465088], [110.2720204, -7.0396363], [110.2723382, -7.0365871], [110.2738031, -7.0341392], [110.2724762, -7.0320476], [110.2715501, -7.0274693], [110.2722112, -7.0261901], [110.2708879, -7.022825], [110.2748566, -7.0193424], [110.2733689, -7.015007], [110.2762375, -7.0118217], [110.2839833, -7.0127257], [110.2857895, -7.0100446], [110.2852707, -7.0081853], [110.2825241, -7.0068459], [110.2828293, -7.0052004], [110.2810898, -7.0028562], [110.2809296, -6.9989075], [110.2837982, -6.9969525], [110.2876434, -6.9970789], [110.2863388, -6.993833], [110.2828561, -6.9905634], [110.2823549, -6.9863047], [110.2845302, -6.9865122], [110.2852323, -6.9828281], [110.2931923, -6.9821523], [110.2939645, -6.9788668], [110.2895487, -6.9713344], [110.2859598, -6.9690757], [110.2881133, -6.965417], [110.2957306, -6.9684424], [110.2997209, -6.959075], [110.2932798, -6.9569753], [110.2918701, -6.9554691], [110.2917099, -6.9501958], [110.2978275, -6.9435949], [110.2991931, -6.9410057], [110.3016334, -6.9395019], [110.3048635, -6.938814], [110.3059173, -6.9375037], [110.3141519, -6.9376523], [110.31993, -6.93896], [110.3279, -6.94269], [110.34033, -6.94802], [110.35558, -6.9527], [110.35727, -6.95393], [110.36237, -6.95447], [110.36631, -6.95361], [110.36897, -6.95512], [110.37433, -6.95413], [110.3768, -6.95471], [110.38275, -6.9547], [110.3769353, -6.9517116], [110.376772, -6.95089], [110.3866795, -6.9497939], [110.3872411, -6.9519246], [110.3906, -6.95198], [110.38932, -6.94783], [110.3932036, -6.9456005], [110.3946301, -6.9479533], [110.3980095, -6.9475748], [110.39898, -6.94978], [110.40145, -6.95148], [110.40538, -6.95084], [110.4058124, -6.9487558], [110.4090185, -6.9471866], [110.4155391, -6.9459766], [110.41943, -6.94433], [110.4195, -6.95092], [110.42338, -6.94966], [110.423932, -6.946902], [110.4242771, -6.9387653], [110.4270177, -6.9382434], [110.4270013, -6.9410459], [110.4291255, -6.9444322], [110.4332015, -6.9439807], [110.4343281, -6.9478445], [110.436241, -6.945758], [110.4367824, -6.9433436], [110.4389525, -6.9422346], [110.4396944, -6.9452976], [110.4417421, -6.9463812], [110.443663, -6.9411591], [110.4429549, -6.9382719], [110.4474383, -6.935793], [110.4487316, -6.9375103], [110.45666, -6.93539], [110.45951, -6.9328], [110.4632125, -6.9315276]]]], "type": "MultiPolygon"}, "properties": {"alt_name": "KOTA SEMARANG", "kabkot_id": "74", "latitude": -7.03333, "longitude": 110.38333, "mhid": "1332:226", "name": "KOTA SEMARANG", "prov_name": "JAWA TENGAH", "province_id": "33", "sample_value": 859}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            var marker_cluster_e009dd454cd00128aa0f4436627571cf = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_c3b8586b1b3697c74ad65f8ef6f19423 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_e009dd454cd00128aa0f4436627571cf);
+        
+    
+        var popup_b004f5652e0d4383326246233c5d82a8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f93170e025f62d83242633351907f83c = $(`<div id="html_f93170e025f62d83242633351907f83c" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         h<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_b004f5652e0d4383326246233c5d82a8.setContent(html_f93170e025f62d83242633351907f83c);
+            
+        
+
+        marker_c3b8586b1b3697c74ad65f8ef6f19423.bindPopup(popup_b004f5652e0d4383326246233c5d82a8)
+        ;
+
+        
+    
+    
+            marker_cluster_e009dd454cd00128aa0f4436627571cf.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e009dd454cd00128aa0f4436627571cf.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            var marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_4db439f34922a6f64aae82a61563947e = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8);
+        
+    
+        var popup_1f2da40c423ca8fcba302cd34bcfa12f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7f9b8432fea5760f7de0ea8d40f2aca1 = $(`<div id="html_7f9b8432fea5760f7de0ea8d40f2aca1" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         h<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_1f2da40c423ca8fcba302cd34bcfa12f.setContent(html_7f9b8432fea5760f7de0ea8d40f2aca1);
+            
+        
+
+        marker_4db439f34922a6f64aae82a61563947e.bindPopup(popup_1f2da40c423ca8fcba302cd34bcfa12f)
+        ;
+
+        
+    
+    
+            var marker_aeccb85dc362f000e08dcec67df7dcd9 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8);
+        
+    
+        var popup_28f56f58d629307cecfb8a37e6cd25da = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_941869da9eb3a2740d123d4210ed3c2e = $(`<div id="html_941869da9eb3a2740d123d4210ed3c2e" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         e<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_28f56f58d629307cecfb8a37e6cd25da.setContent(html_941869da9eb3a2740d123d4210ed3c2e);
+            
+        
+
+        marker_aeccb85dc362f000e08dcec67df7dcd9.bindPopup(popup_28f56f58d629307cecfb8a37e6cd25da)
+        ;
+
+        
+    
+    
+            marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e009dd454cd00128aa0f4436627571cf.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            var marker_cluster_96339465cbaac49a569eccd12e83cc04 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_032ba62060091571efed1a5669867376 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_96339465cbaac49a569eccd12e83cc04);
+        
+    
+        var popup_4a5ae4d5f34558f6c0715ef1e1042c49 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_df975318ba3f0bbb02daf451977b307f = $(`<div id="html_df975318ba3f0bbb02daf451977b307f" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         h<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_4a5ae4d5f34558f6c0715ef1e1042c49.setContent(html_df975318ba3f0bbb02daf451977b307f);
+            
+        
+
+        marker_032ba62060091571efed1a5669867376.bindPopup(popup_4a5ae4d5f34558f6c0715ef1e1042c49)
+        ;
+
+        
+    
+    
+            var marker_45980b7dc4d6bf1721de91124adcd9d5 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_96339465cbaac49a569eccd12e83cc04);
+        
+    
+        var popup_a7902148274e0f54bc8abcae6f625db7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6387689b5851c684b6b8878f08d070be = $(`<div id="html_6387689b5851c684b6b8878f08d070be" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         e<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_a7902148274e0f54bc8abcae6f625db7.setContent(html_6387689b5851c684b6b8878f08d070be);
+            
+        
+
+        marker_45980b7dc4d6bf1721de91124adcd9d5.bindPopup(popup_a7902148274e0f54bc8abcae6f625db7)
+        ;
+
+        
+    
+    
+            var marker_ac22d58f2d0e46a8153f2be528bb0ee7 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_96339465cbaac49a569eccd12e83cc04);
+        
+    
+        var popup_d62718da60dfbf04aed75bfb5addf771 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2adf982fab2810ec09b004ad8c1cff11 = $(`<div id="html_2adf982fab2810ec09b004ad8c1cff11" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         3<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_d62718da60dfbf04aed75bfb5addf771.setContent(html_2adf982fab2810ec09b004ad8c1cff11);
+            
+        
+
+        marker_ac22d58f2d0e46a8153f2be528bb0ee7.bindPopup(popup_d62718da60dfbf04aed75bfb5addf771)
+        ;
+
+        
+    
+    
+            marker_cluster_96339465cbaac49a569eccd12e83cc04.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e009dd454cd00128aa0f4436627571cf.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_96339465cbaac49a569eccd12e83cc04.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            var marker_cluster_e4238b007503cdebd924c8f93c4aaeb1 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_37c8498e1645b6f9b29b94a3fa92c091 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_e4238b007503cdebd924c8f93c4aaeb1);
+        
+    
+        var popup_7860f0836fc4e9a894a471495240c348 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_046c902ea56b9ab452bc5ba712c04344 = $(`<div id="html_046c902ea56b9ab452bc5ba712c04344" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         h<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_7860f0836fc4e9a894a471495240c348.setContent(html_046c902ea56b9ab452bc5ba712c04344);
+            
+        
+
+        marker_37c8498e1645b6f9b29b94a3fa92c091.bindPopup(popup_7860f0836fc4e9a894a471495240c348)
+        ;
+
+        
+    
+    
+            var marker_fdcc30001c7e33fff70258c22efa0e56 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_e4238b007503cdebd924c8f93c4aaeb1);
+        
+    
+        var popup_705915ca1920db520b95649839013c7d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bc80346670d5b1e43433d444a3fbc6e4 = $(`<div id="html_bc80346670d5b1e43433d444a3fbc6e4" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         e<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_705915ca1920db520b95649839013c7d.setContent(html_bc80346670d5b1e43433d444a3fbc6e4);
+            
+        
+
+        marker_fdcc30001c7e33fff70258c22efa0e56.bindPopup(popup_705915ca1920db520b95649839013c7d)
+        ;
+
+        
+    
+    
+            var marker_51b29fc8f6e472f6573d197a6c560be0 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_e4238b007503cdebd924c8f93c4aaeb1);
+        
+    
+        var popup_2f3a420cfd7426ea79e6541dd86d5f81 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2b809463871f635a2b2ece2480bc5c94 = $(`<div id="html_2b809463871f635a2b2ece2480bc5c94" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         3<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_2f3a420cfd7426ea79e6541dd86d5f81.setContent(html_2b809463871f635a2b2ece2480bc5c94);
+            
+        
+
+        marker_51b29fc8f6e472f6573d197a6c560be0.bindPopup(popup_2f3a420cfd7426ea79e6541dd86d5f81)
+        ;
+
+        
+    
+    
+            marker_cluster_e4238b007503cdebd924c8f93c4aaeb1.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e009dd454cd00128aa0f4436627571cf.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_96339465cbaac49a569eccd12e83cc04.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e4238b007503cdebd924c8f93c4aaeb1.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            var marker_cluster_fbff758764e71f616155a28600a97013 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_7b41ce8cc8f1180121a8b8813c3674f1 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_fbff758764e71f616155a28600a97013);
+        
+    
+        var popup_786b0280e60b26ca4ec6380d1437d245 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a1e6da17e48c7145e18304e85f1cb52b = $(`<div id="html_a1e6da17e48c7145e18304e85f1cb52b" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         h<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_786b0280e60b26ca4ec6380d1437d245.setContent(html_a1e6da17e48c7145e18304e85f1cb52b);
+            
+        
+
+        marker_7b41ce8cc8f1180121a8b8813c3674f1.bindPopup(popup_786b0280e60b26ca4ec6380d1437d245)
+        ;
+
+        
+    
+    
+            var marker_88b7dc255b0d0194e5013cda662db903 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_fbff758764e71f616155a28600a97013);
+        
+    
+        var popup_50570bda9573fa932fa545629026bf54 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_78915bc4a26a801154ba71ca5f314418 = $(`<div id="html_78915bc4a26a801154ba71ca5f314418" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         e<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_50570bda9573fa932fa545629026bf54.setContent(html_78915bc4a26a801154ba71ca5f314418);
+            
+        
+
+        marker_88b7dc255b0d0194e5013cda662db903.bindPopup(popup_50570bda9573fa932fa545629026bf54)
+        ;
+
+        
+    
+    
+            var marker_6d7d4bee80bcdd4e2576862639e38505 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_fbff758764e71f616155a28600a97013);
+        
+    
+        var popup_67c4c270e3e1c6b632304139c92fbf85 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a1140c73b1482bd257dd0c7f9f5116d5 = $(`<div id="html_a1140c73b1482bd257dd0c7f9f5116d5" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         3<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_67c4c270e3e1c6b632304139c92fbf85.setContent(html_a1140c73b1482bd257dd0c7f9f5116d5);
+            
+        
+
+        marker_6d7d4bee80bcdd4e2576862639e38505.bindPopup(popup_67c4c270e3e1c6b632304139c92fbf85)
+        ;
+
+        
+    
+    
+            marker_cluster_fbff758764e71f616155a28600a97013.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e009dd454cd00128aa0f4436627571cf.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_96339465cbaac49a569eccd12e83cc04.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e4238b007503cdebd924c8f93c4aaeb1.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_fbff758764e71f616155a28600a97013.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            var marker_cluster_6bac58d25f8c42136b6fc543e754b3f8 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_e7ea418aa4be83596f46a6275e159af5 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_6bac58d25f8c42136b6fc543e754b3f8);
+        
+    
+        var popup_d97420b9f4a78372156d014eab73ea9d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_12951a402500c262497983bcee136bbe = $(`<div id="html_12951a402500c262497983bcee136bbe" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         h<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_d97420b9f4a78372156d014eab73ea9d.setContent(html_12951a402500c262497983bcee136bbe);
+            
+        
+
+        marker_e7ea418aa4be83596f46a6275e159af5.bindPopup(popup_d97420b9f4a78372156d014eab73ea9d)
+        ;
+
+        
+    
+    
+            var marker_6439f77b14aac6e3dae78ab7f859815b = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_6bac58d25f8c42136b6fc543e754b3f8);
+        
+    
+        var popup_00e222528a5f805103c55ed7f3c56936 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e276ed2983539428dc6c255b72dc48ba = $(`<div id="html_e276ed2983539428dc6c255b72dc48ba" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         e<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_00e222528a5f805103c55ed7f3c56936.setContent(html_e276ed2983539428dc6c255b72dc48ba);
+            
+        
+
+        marker_6439f77b14aac6e3dae78ab7f859815b.bindPopup(popup_00e222528a5f805103c55ed7f3c56936)
+        ;
+
+        
+    
+    
+            var marker_1ef7f7efd2e0d9db4e0c37d817454331 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_6bac58d25f8c42136b6fc543e754b3f8);
+        
+    
+        var popup_fd7ba7dc96f0677fe051afbfc0fdb2f9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ac6d123dfa69f875ec981a8fc3466636 = $(`<div id="html_ac6d123dfa69f875ec981a8fc3466636" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         3<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_fd7ba7dc96f0677fe051afbfc0fdb2f9.setContent(html_ac6d123dfa69f875ec981a8fc3466636);
+            
+        
+
+        marker_1ef7f7efd2e0d9db4e0c37d817454331.bindPopup(popup_fd7ba7dc96f0677fe051afbfc0fdb2f9)
+        ;
+
+        
+    
+    
+            marker_cluster_6bac58d25f8c42136b6fc543e754b3f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e009dd454cd00128aa0f4436627571cf.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_96339465cbaac49a569eccd12e83cc04.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e4238b007503cdebd924c8f93c4aaeb1.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_fbff758764e71f616155a28600a97013.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_6bac58d25f8c42136b6fc543e754b3f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            var marker_cluster_b4ca9de54183145332eb810a6d6d928a = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_bec7f79c028552217b45c91d1efe353e = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_b4ca9de54183145332eb810a6d6d928a);
+        
+    
+        var popup_8323d46d91852580ab58666c9cd4f670 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8642c5a8f2e66482824defa764bfbef9 = $(`<div id="html_8642c5a8f2e66482824defa764bfbef9" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         h<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_8323d46d91852580ab58666c9cd4f670.setContent(html_8642c5a8f2e66482824defa764bfbef9);
+            
+        
+
+        marker_bec7f79c028552217b45c91d1efe353e.bindPopup(popup_8323d46d91852580ab58666c9cd4f670)
+        ;
+
+        
+    
+    
+            var marker_fd1dc16ffd5c95a83ecfe21369223b62 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_b4ca9de54183145332eb810a6d6d928a);
+        
+    
+        var popup_c1917571a29a968836d4b94ab3afc1ef = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d14785a3f4eecef954c4b6eed69f3f44 = $(`<div id="html_d14785a3f4eecef954c4b6eed69f3f44" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         e<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_c1917571a29a968836d4b94ab3afc1ef.setContent(html_d14785a3f4eecef954c4b6eed69f3f44);
+            
+        
+
+        marker_fd1dc16ffd5c95a83ecfe21369223b62.bindPopup(popup_c1917571a29a968836d4b94ab3afc1ef)
+        ;
+
+        
+    
+    
+            var marker_9245d02d5140b23593486719052b4ba5 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_b4ca9de54183145332eb810a6d6d928a);
+        
+    
+        var popup_55ad9705b02618acbb10aaef0b53a682 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2a01cf6858472a3d247bbffaaa4b21f5 = $(`<div id="html_2a01cf6858472a3d247bbffaaa4b21f5" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         3<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_55ad9705b02618acbb10aaef0b53a682.setContent(html_2a01cf6858472a3d247bbffaaa4b21f5);
+            
+        
+
+        marker_9245d02d5140b23593486719052b4ba5.bindPopup(popup_55ad9705b02618acbb10aaef0b53a682)
+        ;
+
+        
+    
+    
+            marker_cluster_b4ca9de54183145332eb810a6d6d928a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            tile_layer_73082532aff47c31729c67822cac018a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            geo_json_c496bb69d6cd819407698da08813d2c7.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e009dd454cd00128aa0f4436627571cf.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_0a5aa58bdc42a53ca480581a66aff6f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_96339465cbaac49a569eccd12e83cc04.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_e4238b007503cdebd924c8f93c4aaeb1.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_fbff758764e71f616155a28600a97013.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_6bac58d25f8c42136b6fc543e754b3f8.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            marker_cluster_b4ca9de54183145332eb810a6d6d928a.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+    
+            var marker_cluster_3fa52e957c142a680a0c7047630fc352 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_cbf388b870f154f846d1ce8dcc8da8ef = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_3fa52e957c142a680a0c7047630fc352);
+        
+    
+        var popup_51fcd7ecdadc882f11cd424882a0b8ac = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2430056b72dbec6d9033abf126b0eb4a = $(`<div id="html_2430056b72dbec6d9033abf126b0eb4a" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         h<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_51fcd7ecdadc882f11cd424882a0b8ac.setContent(html_2430056b72dbec6d9033abf126b0eb4a);
+            
+        
+
+        marker_cbf388b870f154f846d1ce8dcc8da8ef.bindPopup(popup_51fcd7ecdadc882f11cd424882a0b8ac)
+        ;
+
+        
+    
+    
+            var marker_825d68ef0ab80bec666666752d670710 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_3fa52e957c142a680a0c7047630fc352);
+        
+    
+        var popup_e3efbe91cb06281ee54cf0769ee12888 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4f6727c863c719e112fe633cc7b3ac91 = $(`<div id="html_4f6727c863c719e112fe633cc7b3ac91" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         e<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_e3efbe91cb06281ee54cf0769ee12888.setContent(html_4f6727c863c719e112fe633cc7b3ac91);
+            
+        
+
+        marker_825d68ef0ab80bec666666752d670710.bindPopup(popup_e3efbe91cb06281ee54cf0769ee12888)
+        ;
+
+        
+    
+    
+            var marker_d4bd74281c5fbe9133b32583e2de9af4 = L.marker(
+                [-6.969176794042751, 110.48201694956126],
+                {
+}
+            ).addTo(marker_cluster_3fa52e957c142a680a0c7047630fc352);
+        
+    
+        var popup_62cab920235b79de7cdc75a3acd2fa57 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0b7bc3a20a7facaf8ce60924028cbd0c = $(`<div id="html_0b7bc3a20a7facaf8ce60924028cbd0c" style="width: 100.0%; height: 100.0%;">         <b>GEPREK SOHOR Genuk</b><br>         3<br>         <img src='https://lh5.googleusercontent.com/p/AF1QipMWQ20rTIMQaGk4LwrtEfKIzZWtJ0MAle_apuP_=w408-h544-k-no' width='200'><br>         Rating: ⭐⭐⭐⭐⭐ 5/5<br>         Harga:  1–25.000         </div>`)[0];
+                popup_62cab920235b79de7cdc75a3acd2fa57.setContent(html_0b7bc3a20a7facaf8ce60924028cbd0c);
+            
+        
+
+        marker_d4bd74281c5fbe9133b32583e2de9af4.bindPopup(popup_62cab920235b79de7cdc75a3acd2fa57)
+        ;
+
+        
+    
+    
+            marker_cluster_3fa52e957c142a680a0c7047630fc352.addTo(map_bdc1d2e45cae0f07fa32004ba9c9f81a);
+        
+</script>
+</html>
