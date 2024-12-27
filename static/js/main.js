@@ -1,0 +1,29 @@
+
+
+function login() {
+    let username = $("#username").val();
+    let password = $("#password").val();
+  
+  
+    $.ajax({
+      type: "POST",
+      url: "/login",
+      data: {
+        username_give: username,
+        password_give: password,
+      },
+      success: function (response) {
+        if (response.result === "success") {
+            if(response.role === "user"){
+                alert("Login succes");
+                $.cookie("tokenuser", response["token"], { path: "/admin", });
+                window.location.replace("/admin");
+            }
+        } 
+      
+        else {
+          alert(response["msg"]);
+        }
+      },
+    });
+  }

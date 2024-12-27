@@ -1,11 +1,14 @@
+import jwt
 import json
 import os
 import folium
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from os.path import join, dirname
 from folium.plugins import MarkerCluster
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from datetime import datetime, timedelta
+import hashlib
 
 app = Flask(__name__)
 dotenv_path = join(dirname(__file__), ".env")
@@ -14,10 +17,13 @@ load_dotenv(dotenv_path)
 
 MONGODB_URI = os.environ.get("MONGODB_URI")
 DB_NAME = os.environ.get("DB_NAME")
-app.secret_key = "secret_key"
+SECRET_KEY = os.environ.get("SECRET_KEY")
+TOKEN_KEY = os.environ.get("TOKEN_KEY")
+TOKEN_USER = os.environ.get("TOKEN_USER")
 
 client = MongoClient(MONGODB_URI)
 db = client[DB_NAME]
+app.secret_key = SECRET_KEY
 
 
 # Memuat geojson agar bisa digunakan
@@ -45,9 +51,35 @@ def home():
     return render_template("main/home.html", enable_scroll_nav=False)
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login/login.html")
+    if request.method == "GET":
+        return render_template("login/login.html")
+    else:
+        username_receive = request.form["username_give"]
+        password_receive = request.form["password_give"]
+        password_hash = hashlib.sha3_256(password_receive.encode("utf-8")).hexdigest()
+        result = db.users.find_one(
+            {
+                "username": username_receive,
+                "password": password_hash,
+            }
+        )
+        if result:
+            role = result.get("role", "user")
+            payload = {
+                "id": username_receive,
+                "exp": datetime.utcnow() + timedelta(seconds=60 * 60 * 24),
+            }
+            token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+            return jsonify({"result": "success", "token": token, "role": role})
+        else:
+            return jsonify(
+                {
+                    "result": "fail",
+                    "msg": "We could not find a user with that id/password combination",
+                }
+            )
 
 
 @app.route("/dash")
