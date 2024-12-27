@@ -13,11 +13,14 @@ Home
   <div class="container py-5 d-flex flex-column flex-lg-row align-items-center justify-content-between h-100 ">
     <!-- Text Section -->
     <div class="text-center text-lg-start">
-      <h1 class="display-3 fw-bold mb-3">Sistem Pemetaan <span class="d-block">Fasilitas Umum Semarang</span></h1>
+      <h1 class="display-3 fw-bold mb-3 gradient-text">Sistem Pemetaan Fasilitas Umum Semarang</h1>
       <p class="lead mb-4">
         Dapatkan informasi terkini tentang fasilitas umum di Semarang, termasuk lokasi, layanan,
         dan aksesibilitas untuk kebutuhan Anda.
       </p>
+      <style>
+
+      </style>
 
       <!-- Search Bar Section -->
       <div class="d-flex gap-3 mb-4">
@@ -60,19 +63,126 @@ Home
 
 
 <!-- Section preview map -->
-<section class="container">
 
-  <div>
-    <div class="text-center">
-      <h1>Map Preview</h1>
+<section class="container" style="margin-bottom: 40px;" id="JUTAN">
+  <div class="text-center" style="margin: 20px 0px 20px 0px;">
+    <h1>Petunjuk Pemetaan Fasilitas <span><br>
+        <h1>Umum Semarang</h1>
+      </span></h1>
+  </div>
+  <div class="row">
+    <!-- Bagian Peta -->
+    <div class="col-md-6">
+      <div id="map-container" class="d-flex justify-content-center">
+        <iframe src="{{ url_for('static', filename='preview/preview_map.html') }}" width="90%" height="480"
+          style="border: none; border-radius: 10px;">
+        </iframe>
+      </div>
     </div>
-    <div id="map-container">
-      <iframe src="{{ url_for('static', filename='preview/preview_map.html') }}" width="100%" height="500">
+
+
+    <!-- Bagian Kartu -->
+    <div class="col-md-6">
+      <div class="row row-cols-1 row-cols-md-3 g-3">
+        <!-- Card 1 -->
+        <div class="col">
+          <div class="card shadow-sm" style="width: 200; height: 230px;">
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+              <div class="icon mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+              </div>
+              <h3>Marketing</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="card shadow-sm" style="width: 200; height: 230px;">
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+              <div class="icon mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+              </div>
+              <h3>Marketing</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="card shadow-sm" style="width: 200; height: 230px;">
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+              <div class="icon mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+              </div>
+              <h3>Marketing</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="card shadow-sm" style="width: 200; height: 230px;">
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+              <div class="icon mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+              </div>
+              <h3>Marketing</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="card shadow-sm" style="width: 200; height: 230px;">
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+              <div class="icon mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+              </div>
+              <h3>Marketing</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="card shadow-sm" style="width: 200; height: 230px;">
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+              <div class="icon mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+              </div>
+              <h3>Marketing</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
     </div>
   </div>
-  </iframe>
-
 </section>
+
+
 <!-- End Section preview map -->
 
 
@@ -82,9 +192,7 @@ Home
   <div class="container flex-column">
 
     <div class="row align-items-center">
-      <div class="col-lg-6">
-        <img src="{{ url_for('static', filename='images/img1.png') }}" alt="FAQ Illustration" class="img-fluid mb-4">
-      </div>
+
       <div class="col-lg-6">
         <h2 class="mb-5">Frequently Asked Questions (FAQ)</h2>
         <div class="accordion" id="faqAccordion">
@@ -182,6 +290,12 @@ Home
           </div>
         </div>
       </div>
+
+      <div class="col-lg-6">
+        <img src="{{ url_for('static', filename='images/faq.png') }}" alt="FAQ Illustration" class="img-fluid mb-4">
+      </div>
+
+
     </div>
   </div>
 </section>

@@ -50,6 +50,11 @@ def login():
     return render_template("login/login.html")
 
 
+@app.route("/dash")
+def dash():
+    return render_template("dashboard/HomeDash.html")
+
+
 @app.route("/map", methods=["GET", "POST"])
 def map():
     if request.method == "POST":

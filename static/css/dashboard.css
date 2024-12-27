@@ -1,0 +1,136 @@
+
+* {
+    font-family: "Nunito", "Segoe UI", Roboto;
+}
+
+/* Style sidebar */
+.sidebar {
+    z-index: 1;
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    background:rgb(8 51 68);
+    background: linear-gradient(180deg, rgba(14, 63, 198, 0.955) 0%, rgb(28, 114, 200) 65%);
+    padding-top: 13px;
+    color: white;
+    transition: all 0.3s;
+
+}
+
+.sidebar .sidebar-brand {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    display: block;
+    letter-spacing: 1px;
+}
+
+.sidebar.collapsed {
+    width: 0;
+}
+
+.content.collapsed {
+    margin-left: 0;
+}
+
+.sidebar ul li a {
+    font-size: 16px;
+    color: white;
+    opacity: 60%;
+    margin-top: 20px;
+}
+
+.sidebar ul li a:hover {
+    opacity: 100%;
+}
+
+/* end style sidebar */
+
+
+/* style Navbvar */
+.navbar {
+    background-color: white;
+    color: #5a5c69;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 0;
+}
+
+
+.border-bottom {
+    border-bottom: 1px solid #fff;
+    margin-bottom: 20px;
+}
+
+.navbar-toggler {
+    color: #5a5c69
+}
+/* End style navbar */
+
+/* Style Content Dashboard */
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    color: #5a5c69;
+    transition: all 0.3s;
+}
+
+.card-content .card .card-body .row{
+    font-size: x-large;
+    margin-left: 4px;
+    
+}
+
+.card-content .card a{
+  border-top-left-radius: 0 ;
+  border-top-right-radius: 0 ;
+    
+}
+
+.description-cell {
+    max-width: 200px; 
+    max-height: 100px; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+   
+}
+
+.action-cell{
+    display: flex;
+    gap: 4px;
+}
+
+.not-btn:hover{
+    background-color: #208454!important;
+}
+/* End style Content Dashboard */
+
+/* style responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .dropdown-menu {
+        transform: none !important;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .dropdown-menu {
+        width: 200px;
+    }
+}

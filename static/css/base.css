@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+.gradient-text {
+    font-weight: bold;
+    margin-bottom: 3rem;
+    background: linear-gradient(45deg, #FAC67A, #F9E6CF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
 /* Default Navbar (Transparan) */
 .navbar {
@@ -134,15 +141,7 @@ html, body {
   }
   
   
-  #map-container {
-      margin: 0px 100px 0px 100px;
-      border: solid;
-      border-radius: 10px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      -ms-border-radius: 10px;
-      -o-border-radius: 10px;
-  }
+  
   
 
    /* Animation for floating image */
@@ -177,4 +176,7 @@ html, body {
   }
 
 
+  .faq-section{
+    background-color: #fafaf9;
+  }
 

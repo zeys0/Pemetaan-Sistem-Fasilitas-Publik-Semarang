@@ -1,0 +1,43 @@
+<div class="sidebar">
+
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <img src="{{url_for('static', filename='images/logo.png')}}" width="50" height="50"></img>
+        </div>
+        <div class="sidebar-brand-text">Menu</div>
+    </a>
+    <hr class="mx-auto" style="max-width: 100%; width: 95%; margin-top: 15px;">
+    <ul class="list-unstyled container">
+
+        <li class="side-item">
+            <a class="nav-link" href="/admin">
+                <i class="fas fa-home"></i>
+                <span>Home</span></a>
+        </li>
+        <li class="side-item">
+            <a class="nav-link" href="/admin/kelolapesanan">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Kelola Pesanan</span></a>
+        </li>
+        <li class="side-item">
+            <a class="nav-link" href="/admin/kelolaproduk">
+                <i class="fas fa-box"></i>
+                <span>Kelola Produk</span></a>
+        </li>
+
+    </ul>
+    <hr class="mx-auto" style="max-width: 100%; width: 95%; margin-top: 15px;">
+
+</div>
+
+
+
+<script>
+    // Script to handle sidebar collapse
+    const sidebar = document.querySelector('.sidebar');
+    const content = document.querySelector('.content');
+    document.querySelector('.navbar-toggler').addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        content.classList.toggle('collapsed');
+    });
+</script>
