@@ -1,0 +1,274 @@
+{% extends 'dashboard/BaseDash.html' %}
+{% block title %}
+Facility
+{% endblock %}
+{% block content %}
+
+<div class="content">
+    <div class="container-fluid">
+        <div style="display: flex;">
+            <div>
+                <h2>Dashboard</h2>
+                <p class="subtitle">Facility Manages</p>
+            </div>
+            <div class="mt-1" style="margin-left: auto;">
+                <div type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahData">Add Data
+                </div>
+            </div>
+        </div>
+
+        <!-- flash -->
+        {% with msg = get_flashed_messages() %} {% if msg %} {% for msg in msg %}
+        <script>
+            $(document).ready(function () {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    },
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "{{msg}}",
+                })
+            });
+        </script>
+        {% endfor %} {% endif %} {% endwith %}
+
+        <!-- endflash -->
+
+
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Image</th>
+                        <th>Facility Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if places_coll|length > 0 %}
+                    {% for facility in places_coll %}
+                    <tr>
+                        <td>{{ (pagination.page - 1) * pagination.per_page + loop.index }}</td>
+                        <td>
+                            {% if facility.image %}
+                            <img src="{{ url_for('static', filename='uploads/' + facility.image) }}"
+                                alt="Gambar Fasilitas" width="130" height="130" style="border-radius: 10px;">
+                            {% else %}
+                            <span>No image</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ facility.name }}</td>
+                        <td>{{ facility.category }}</td>
+                        <td class="description-cell">{{ facility.description }}</td>
+                        <td>{{ facility.address}}</td>
+                        <td class="action-cell">
+                            <!-- Tombol Hapus -->
+                            <form action="/facility/delete/{{ facility._id|string }}" method="POST"
+                                onsubmit="return conDelete(event)">
+                                <button type="submit" class="btn btn-danger" title="Hapus">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+
+
+                            <!-- Tombol Edit -->
+                            <button type="button" class="btn btn-primary" title="Edit" data-bs-toggle="modal"
+                                data-bs-target="#editData{{ facility._id|string }}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">No Data Facility</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <script>
+            function conDelete(event) {
+                event.preventDefault(); // Mencegah pengiriman form langsung
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Jika dikonfirmasi, kirim form secara manual
+                        event.target.submit();
+                    }
+                });
+            }
+
+        </script>
+        {{ pagination.links }}
+
+
+
+
+
+        {% for places in places_coll %}
+        <!-- Modal edit Data -->
+        <div class="modal fade" id="editData{{places._id|string}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Fasilitas</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/facility/edit/{{places._id|string}}" method="POST" enctype="multipart/form-data">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="text" placeholder="Masukkan Nama Fasilitas"
+                                    name="name" style="border-radius: 13px;" value="{{places.name}}" />
+                                <label for="floatingTextarea2">Nama Fasilitas</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="text" placeholder="Masukkan Nama Fasilitas"
+                                    name="address" style="border-radius: 13px;" value="{{places.address}}" />
+                                <label for="floatingTextarea2">
+                                    <Address></Address>
+                                </label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" name="category" style="border-radius: 13px;">
+                                    <option value="Fasilitas Kesehatan" {% if places.category=='Fasilitas Kesehatan'
+                                        %}selected{% endif %}>Fasilitas Kesehatan</option>
+                                    <option value="Fasilitas Pendidikan" {% if places.category=='Fasilitas Pendidikan'
+                                        %}selected{% endif %}>Fasilitas Pendidikan</option>
+                                    <option value="Fasilitas Transportasi" {% if
+                                        places.category=='Fasilitas Transportasi' %}selected{% endif %}>Fasilitas
+                                        Transportasi</option>
+                                    <option value="Fasilitas Keamanan" {% if places.category=='Fasilitas Keamanan'
+                                        %}selected{% endif %}>Fasilitas Keamanan</option>
+                                    <option value="Fasilitas Pelayanan Umum" {% if
+                                        places.category=='Fasilitas Pelayanan Umum' %}selected{% endif %}>Fasilitas
+                                        Pelayanan Umum</option>
+                                    <option value="Fasilitas Hiburan dan Olahraga" {% if
+                                        places.category=='Fasilitas Hiburan dan Olahraga' %}selected{% endif %}>
+                                        Fasilitas Hiburan dan Olahraga</option>
+                                </select>
+                                <label for="floatingTextarea2">Kategori Fasilitas</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="text" placeholder="Masukkan Latitude" name="latitude"
+                                    style="border-radius: 13px;"
+                                    value="{{ places.location.latitude if places.location else '' }}" required>
+                                <label for="floatingTextarea2">Latitude</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="text" placeholder="Masukkan Longitude"
+                                    name="longitude" style="border-radius: 13px;"
+                                    value="{{ places.location.longitude if places.location else '' }}" required>
+                                <label for="floatingTextarea2">Longitude</label>
+                            </div>
+
+                            <div class="mb-3">
+                                <textarea class="form-control" name="description" id="description"
+                                    style="border-radius: 13px;" placeholder="Deskripsi Fasilitas"
+                                    required>{{places.description}}</textarea>
+                            </div>
+                            <div class="mb-3 mt-4">
+                                <input type="file" class="form-control" id="image" accept=".png,.jpg,.jpeg"
+                                    name="images" style="border-radius: 13px;" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+        <!-- End modal edit data -->
+
+        <!-- Modal tambah Data -->
+        <div class="modal fade" id="tambahData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Fasilitas</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/admin/facility/add" method="POST" enctype="multipart/form-data">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="text" name="name" placeholder="Facility Name"
+                                    required />
+                                <label for="name">Nama Fasilitas</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="text" name="address" placeholder="Address" required />
+                                <label for="address">Address</label>
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-control" name="category" required>
+                                    <option value="" disabled selected>Pilih Kategori</option>
+                                    <option value="Fasilitas Kesehatan">Fasilitas Kesehatan</option>
+                                    <option value="Fasilitas Pendidikan">Fasilitas Pendidikan</option>
+                                    <option value="Fasilitas Transportasi">Fasilitas Transportasi</option>
+                                    <option value="Fasilitas Keamanan">Fasilitas Keamanan</option>
+                                    <option value="Fasilitas Pelayanan Umum">Fasilitas Pelayanan Umum</option>
+                                    <option value="Fasilitas Hiburan dan Olahraga">Fasilitas Hiburan dan Olahraga
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="text" name="latitude" placeholder="Latitude"
+                                    required />
+                                <label for="latitude">Latitude</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="text" name="longitude" placeholder="Longitude"
+                                    required />
+                                <label for="longitude">Longitude</label>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" name="description" placeholder="Deskripsi"
+                                    required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <input type="file" class="form-control" name="images" accept=".png,.jpg,.jpeg"
+                                    required />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

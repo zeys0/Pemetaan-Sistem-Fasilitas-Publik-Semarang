@@ -5,10 +5,13 @@ import folium
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from os.path import join, dirname
 from folium.plugins import MarkerCluster
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 import hashlib
+from flask_paginate import Pagination
+from bson import ObjectId
+
 
 app = Flask(__name__)
 dotenv_path = join(dirname(__file__), ".env")
@@ -51,6 +54,13 @@ def home():
     return render_template("main/home.html", enable_scroll_nav=False)
 
 
+#########################################
+#                                       #
+#            Login Validate             #--------------------------------------------------------------------------
+#                                       #
+#########################################
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -82,6 +92,20 @@ def login():
             )
 
 
+#########################################
+#                                       #
+# ->>>>>>>>>>END LOGIN VALIDATE<<<<<<<<-#------------------------------------------------------------------------------
+#                                       #
+#########################################
+
+
+#########################################
+#                                       #
+#            Admin Facility FUNCTION    #------------------------------------------------------------------------------
+#                                       #
+#########################################
+
+
 @app.route("/admin")
 def adminHome():
     token_receive = request.cookies.get(TOKEN_USER)
@@ -97,29 +121,160 @@ def adminHome():
         return redirect(url_for("login"))
 
 
-@app.route("/map", methods=["GET", "POST"])
-def map():
-    if request.method == "POST":
-        name = request.form["name"]
-        lat = float(request.form["lat"])
-        lon = float(request.form["lon"])
-        img_url = request.form["img_url"]
-        price_range = request.form["price_range"]
-        desc = request.form["desc"]
+@app.route("/admin/facility")
+def PlaceManages():
+
+    token_receive = request.cookies.get(TOKEN_USER)
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=["HS256"])
+        user_info = db.users.find_one({"username": payload.get("id")})
+        category = request.args.get("category", None)
+        query = {"category": category} if category else {}
+
+        page = request.args.get("page", 1, type=int)
+        per_page = request.args.get("per_page", 3, type=int)
+        offset = (page - 1) * per_page
+
+        facilities = list(
+            db.places.find(query)
+            .sort("created_at", DESCENDING)
+            .skip(offset)
+            .limit(per_page)
+        )
+
+        total = db.places.count_documents(query)
+
+        pagination = Pagination(
+            page=page,
+            per_page=per_page,
+            total=total,
+            show_single_page=False,
+            alignment="end",
+        )
+
+        return render_template(
+            "dashboard/FacilityManage.html",
+            places_coll=facilities,
+            pagination=pagination,
+            user_info=user_info,
+        )
+
+    except jwt.ExpiredSignatureError:
+        msg = "Your token has expired"
+        return redirect(url_for("login"), msg=msg)
+    except jwt.exceptions.DecodeError:
+        msg = "There was a problem logging you in"
+        return redirect(url_for("login"))
+
+
+@app.route("/admin/facility/add", methods=["POST"])
+def addFacility():
+    token_receive = request.cookies.get(TOKEN_USER)
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=["HS256"])
+        name = request.form.get("name")
+        address = request.form.get("address")
+        category = request.form.get("category")
+        latitude = float(request.form.get("latitude"))
+        longitude = float(request.form.get("longitude"))
+        description = request.form.get("description")
+        image = request.files["images"]
+
+        if image:
+            save_to = "static/uploads"
+            if not os.path.exists(save_to):
+                os.makedirs(save_to)
+
+        ext = image.filename.split(".")[-1]
+        file_name = f"facility-{datetime.now().strftime('%Y%m%d%H%M%S')}.{ext}"
+        image.save(f"{save_to}/{file_name}")
 
         db.places.insert_one(
             {
                 "name": name,
-                "lat": lat,
-                "lon": lon,
-                "image_url": img_url,
-                "price_range": price_range,
-                "description": desc,
+                "address": address,
+                "category": category,
+                "location": {"latitude": latitude, "longitude": longitude},
+                "description": description,
+                "image": file_name,
+                "created_at": datetime.now(),
             }
         )
+        flash("Facility data is successfully added.")
+        return redirect(url_for("PlaceManages"))
 
-        flash("Berhasil Menambah data")
-        return redirect(url_for("map"))
+    except jwt.ExpiredSignatureError:
+        msg = "Your token has expired"
+        return redirect(url_for("login"), msg=msg)
+    except jwt.exceptions.DecodeError:
+        msg = "There was a problem logging you in"
+        return redirect(url_for("login"))
+
+
+@app.route("/facility/edit/<id>", methods=["POST"])
+def editFacility(id):
+
+    name = request.form.get("name")
+    address = request.form.get("address")
+    category = request.form.get("category")
+    latitude = float(request.form.get("latitude"))
+    longitude = float(request.form.get("longitude"))
+    description = request.form.get("description")
+    image = request.files["images"]
+
+    if image:
+        save_to = "static/uploads"
+        facility = db.places.find_one({"_id": ObjectId(id)})
+        target = f"static/uploads/{facility['image']}"
+
+        if os.path.exists(target):
+            os.remove(target)
+
+        ext = image.filename.split(".")[-1]
+        file_name = f"facility-{datetime.now().strftime('%Y%m%d%H%M%S')}.{ext}"
+        image.save(f"{save_to}/{file_name}")
+
+        db.places.update_one({"_id": ObjectId(id)}, {"$set": {"image": file_name}})
+
+    db.places.update_one(
+        {"_id": ObjectId(id)},
+        {
+            "$set": {
+                "name": name,
+                "address": address,
+                "category": category,
+                "location": {"latitude": latitude, "longitude": longitude},
+                "description": description,
+            }
+        },
+    )
+
+    flash("Facility data is successfully updated.")
+    return redirect(url_for("PlaceManages"))
+
+
+@app.route("/facility/delete/<id>", methods=["POST"])
+def deleteFacility(id):
+    facility = db.places.find_one({"_id": ObjectId(id)})
+    target = f"static/uploads/{facility['image']}"
+
+    if os.path.exists(target):
+        os.remove(target)
+
+    db.places.delete_one({"_id": ObjectId(id)})
+    flash("Facility data was successfully deleted.")
+    return redirect(url_for("PlaceManages"))
+
+
+#########################################
+#                                       #
+# ->>>>>>>>>>>>>>>END admin<<<<<<<<<<<<-#------------------------------------------------------------------------------------------
+#                                       #
+#########################################
+
+
+@app.route("/map", methods=["GET", "POST"])
+def map():
 
     marker_cluster = MarkerCluster().add_to(preview_map)
     places = db.places.find()
@@ -128,7 +283,6 @@ def map():
         <b>{place['name']}</b><br>
         {place['description']}<br>
         <img src='{place['image_url']}' width='200'><br>
-        Rating: ⭐⭐⭐⭐⭐ 5/5<br>
         Harga: {place['price_range']}
         """
         folium.Marker([place["lat"], place["lon"]], popup=popup_content).add_to(
