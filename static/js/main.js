@@ -14,11 +14,21 @@ function login() {
       },
       success: function (response) {
         if (response.result === "success") {
-            if(response.role === "user"){
-                alert("Login succes");
-                $.cookie("tokenuser", response["token"], { path: "/admin", });
-                window.location.replace("/admin");
-            }
+          if (response.role === "user") {
+            Swal.fire({
+                title: 'Login Successful!',
+                text: 'You will be redirected to the admin dashboard.',
+                icon: 'success',
+                confirmButtonText: 'Okay'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Set cookie and redirect after user confirms
+                    $.cookie("tokenuser", response["token"], { path: "/admin" });
+                    window.location.replace("/admin");
+                }
+            });
+        }
+        
         } 
       
         else {

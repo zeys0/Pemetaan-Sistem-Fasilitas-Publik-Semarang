@@ -82,9 +82,19 @@ def login():
             )
 
 
-@app.route("/dash")
-def dash():
-    return render_template("dashboard/HomeDash.html")
+@app.route("/admin")
+def adminHome():
+    token_receive = request.cookies.get(TOKEN_USER)
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=["HS256"])
+
+        return render_template("dashboard/HomeDash.html")
+    except jwt.ExpiredSignatureError:
+        msg = "Your token has expired"
+        return redirect(url_for("login"), msg=msg)
+    except jwt.exceptions.DecodeError:
+        msg = "There was a problem logging you in"
+        return redirect(url_for("login"))
 
 
 @app.route("/map", methods=["GET", "POST"])
