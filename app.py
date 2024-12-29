@@ -49,9 +49,113 @@ folium.GeoJson(
 preview_map.save("static/preview/preview_map.html")
 
 
+def update_map():
+    # Inisialisasi peta
+    marker_cluster = MarkerCluster().add_to(preview_map)
+
+    # Mapping kategori ke warna
+    category_colors = {
+        "Fasilitas Kesehatan": "red",
+        "Fasilitas Pendidikan": "blue",
+        "Fasilitas Transportasi": "green",
+        "Fasilitas Keamanan": "purple",
+        "Fasilitas Administrasi Publik": "orange",
+        "Fasilitas Hiburan": "cadetblue",
+    }
+
+    # Ambil data dari database
+    places = db.places.find()
+    for place in places:
+        # Tentukan warna berdasarkan kategori
+        category = place["category"]
+        marker_color = category_colors.get(
+            category, "gray"
+        )  # Default warna jika kategori tidak dikenal
+
+        # Konten popup
+        popup_content = f"""
+        <b>{place['name']}</b><br>
+        {place['description']}<br>
+        <img src='/static/uploads/{place['image']}' width='200'><br>
+        Alamat: {place['address']}<br>
+        Kategori: {category}
+        """
+
+        # Tambahkan marker dengan warna sesuai kategori
+        folium.Marker(
+            [place["location"]["latitude"], place["location"]["longitude"]],
+            popup=folium.Popup(popup_content, max_width=300),
+            icon=folium.Icon(color=marker_color),
+        ).add_to(marker_cluster)
+
+    # Tambahkan legenda sebagai HTML
+    legend_html = """
+     <div style="
+     position: fixed; 
+     top: 10px; right: 10px; width: 200px; height: auto; 
+     background-color: white; z-index:9999; font-size:14px; 
+     border:1px solid black; border-radius:5px; padding: 10px;">
+     <b>Keterangan Warna:</b><br>
+     <i style="background:red; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Kesehatan<br>
+     <i style="background:blue; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Pendidikan<br>
+     <i style="background:green; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Transportasi<br>
+     <i style="background:purple; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Keamanan<br>
+     <i style="background:orange; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Administrasi Publik<br>
+     <i style="background:cadetblue; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Hiburan<br>
+     </div>
+     """
+    preview_map.get_root().html.add_child(folium.Element(legend_html))
+
+    # Simpan peta ke file
+    preview_map.save("static/preview/preview_map.html")
+
+
 @app.route("/")
 def home():
-    return render_template("main/home.html", enable_scroll_nav=False)
+    update_map()  # Tidak menampilkan legenda
+
+    # Hitung jumlah fasilitas berdasarkan kategori
+    category_counts = db.places.aggregate(
+        [{"$group": {"_id": "$category", "count": {"$sum": 1}}}]
+    )
+
+    # Format hasil menjadi dictionary
+    category_data = {item["_id"]: item["count"] for item in category_counts}
+
+    total_places = db.places.count_documents({})
+
+    return render_template(
+        "main/home.html",
+        enable_scroll_nav=False,
+        category_data=category_data,
+        total_places=total_places,
+    )
+
+
+@app.route("/location")
+def locationFacility():
+
+    categories = db.places.distinct("category")
+    return render_template(
+        "main/homeLocation.html",
+        categories=categories,
+        enable_scroll_nav=False,
+    )
+
+
+@app.route("/location/<category>")
+def FacilityCategory(category):
+    # Mengambil data dan mengonversi cursor ke list
+    locations_cursor = db.places.find({"category": category})
+    locations = list(locations_cursor)  # Mengonversi cursor ke list
+
+    # Mengirim data ke template
+    return render_template(
+        "main/locationCategory.html",
+        category=category,
+        locations=locations,  # Kirim list ke template
+        enable_scroll_nav=False,
+    )
 
 
 #########################################
@@ -111,8 +215,9 @@ def adminHome():
     token_receive = request.cookies.get(TOKEN_USER)
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=["HS256"])
-
-        return render_template("dashboard/HomeDash.html")
+        update_map()
+        total_places = db.places.count_documents({})
+        return render_template("dashboard/HomeDash.html", total_places=total_places)
     except jwt.ExpiredSignatureError:
         msg = "Your token has expired"
         return redirect(url_for("login"), msg=msg)
@@ -200,6 +305,9 @@ def addFacility():
                 "created_at": datetime.now(),
             }
         )
+
+        update_map()
+
         flash("Facility data is successfully added.")
         return redirect(url_for("PlaceManages"))
 
@@ -249,6 +357,7 @@ def editFacility(id):
         },
     )
 
+    update_map()
     flash("Facility data is successfully updated.")
     return redirect(url_for("PlaceManages"))
 
@@ -262,6 +371,7 @@ def deleteFacility(id):
         os.remove(target)
 
     db.places.delete_one({"_id": ObjectId(id)})
+    update_map()
     flash("Facility data was successfully deleted.")
     return redirect(url_for("PlaceManages"))
 
@@ -271,25 +381,6 @@ def deleteFacility(id):
 # ->>>>>>>>>>>>>>>END admin<<<<<<<<<<<<-#------------------------------------------------------------------------------------------
 #                                       #
 #########################################
-
-
-@app.route("/map", methods=["GET", "POST"])
-def map():
-
-    marker_cluster = MarkerCluster().add_to(preview_map)
-    places = db.places.find()
-    for place in places:
-        popup_content = f"""
-        <b>{place['name']}</b><br>
-        {place['description']}<br>
-        <img src='{place['image_url']}' width='200'><br>
-        Harga: {place['price_range']}
-        """
-        folium.Marker([place["lat"], place["lon"]], popup=popup_content).add_to(
-            marker_cluster
-        )
-    preview_map.save("static/preview/preview_map.html")
-    return render_template("main/map.html", enable_scroll_nav=False)
 
 
 if __name__ == "__main__":

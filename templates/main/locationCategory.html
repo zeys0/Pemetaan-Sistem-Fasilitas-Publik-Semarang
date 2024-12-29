@@ -1,0 +1,70 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ category }}{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 100px; margin-bottom: 30px;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent p-0 mb-0">
+            <li class="breadcrumb-item"><a href="/location" class="text-decoration-none"><i class="fas fa-home"></i>
+                    Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ category }}</li>
+        </ol>
+    </nav>
+    <hr class="my-2">
+
+    <div class="row">
+        <div class="div">
+            <h3>{{ category }}</h3>
+            <hr>
+        </div>
+
+        <!-- Container to hold all cards -->
+        <div id="locations-container" class="row">
+            {% for location in locations %}
+            <div class="col-md-4 mb-3 location-card"
+                style="display: {% if loop.index <= 3 %}block{% else %}none{% endif %}">
+                <div class="card shadow-sm h-100">
+                    <img src="{{ url_for('static', filename='images/img1.png') }}" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-dark">{{ location.name }}</h5>
+                        <p class="card-text text-muted">{{ location.address }}</p>
+                    </div>
+                    <button class="btn btn-primary">Detail</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- See More Button -->
+        {% if locations|length > 3 %}
+        <div class="col-12 text-center mt-3">
+            <button id="see-more-btn" class="btn btn-secondary">See More</button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- JavaScript to handle See More functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cards = document.querySelectorAll('.location-card');
+        var seeMoreButton = document.getElementById('see-more-btn');
+
+        // Handle click on "See More"
+        if (seeMoreButton) {
+            seeMoreButton.addEventListener('click', function () {
+                // Menampilkan semua card yang tersembunyi
+                cards.forEach(function (card, index) {
+                    if (index >= 3) {
+                        card.style.display = 'block';
+                    }
+                });
+                // Sembunyikan tombol "See More" setelah diklik
+                seeMoreButton.style.display = 'none';
+            });
+        }
+    });
+</script>
+{% endblock %}

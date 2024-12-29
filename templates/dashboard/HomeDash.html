@@ -7,93 +7,24 @@ Home
 
 <div class="content">
     <div class="container-fluid">
-        <div style="display: flex;">
+        <div class="dashboard-header">
             <div>
-                <h2>Dashboard</h2>
+                <h2 class="title">Dashboard</h2>
                 <p class="subtitle">Sistem Pemetaan Fasilitas Umum Semarang</p>
             </div>
-            <div class="mt-1" style="margin-left: auto;">
-
+            <div class="mt-1 card">
+                <div class="row">
+                    <span>{{total_places}}</span>
+                    <span>Total Data Facility</span>
+                </div>
             </div>
         </div>
 
-
-        <div class=" row">
-            <!-- Cards -->
-            <div class="col-md-4 col-sm-12 card-content">
-                <div class="card mb-3 shadow">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-user fa-4x"></i>
-                        <div class="row">
-                            <span>34</span>
-                            <span>Pasien</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary w-100" style="cursor: default;"></a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12 card-content">
-                <div class="card mb-3 shadow">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-user fa-4x"></i>
-                        <div class="row">
-                            <span>34</span>
-                            <span>Pasien</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary w-100" style="cursor: default;"></a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12 card-content">
-                <div class="card mb-3 shadow">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-user fa-4x"></i>
-                        <div class="row">
-                            <span>34</span>
-                            <span>Pasien</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary w-100" style="cursor: default;"></a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12 card-content">
-                <div class="card mb-3 shadow">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-user fa-4x"></i>
-                        <div class="row">
-                            <span>34</span>
-                            <span>Pasien</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary w-100" style="cursor: default;"></a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12 card-content">
-                <div class="card mb-3 shadow">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-user fa-4x"></i>
-                        <div class="row">
-                            <span>34</span>
-                            <span>Pasien</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary w-100" style="cursor: default;"></a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12 card-content">
-                <div class="card mb-3 shadow">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-user fa-4x"></i>
-                        <div class="row">
-                            <span>34</span>
-                            <span>Pasien</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary w-100" style="cursor: default;"></a>
-                </div>
-            </div>
-
+        <div class="map-container" style="width: 100%; height: 500px; margin-top: 20px;">
+            <iframe src="/static/preview/preview_map.html" width="100%" height="100%" style="border: none;"></iframe>
         </div>
+
+
 
         <!-- Table -->
 

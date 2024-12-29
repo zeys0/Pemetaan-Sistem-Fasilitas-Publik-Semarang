@@ -87,97 +87,66 @@ Home
     <!-- Bagian Kartu -->
     <div class="col-md-6">
       <div class="row row-cols-1 row-cols-md-3 g-3">
+
+
+
         <!-- Card 1 -->
+        {% for category, count in category_data.items() %}
         <div class="col">
           <div class="card shadow-sm" style="width: 200; height: 230px;">
             <div class="card-body text-center d-flex flex-column justify-content-center">
+
               <div class="icon mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                {% if category == "Fasilitas Kesehatan" %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d52d03"
+                  class="bi bi-hospital-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M6 0a1 1 0 0 0-1 1v1a1 1 0 0 0-1 1v4H1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h6v-2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V16h6a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-3V3a1 1 0 0 0-1-1V1a1 1 0 0 0-1-1zm2.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1zM2.25 9h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 9.75v-.5A.25.25 0 0 1 2.25 9m0 2h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5a.25.25 0 0 1 .25-.25M2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM13.25 9h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5a.25.25 0 0 1 .25-.25M13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zm.25 1.75h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5a.25.25 0 0 1 .25-.25" />
                 </svg>
+                {% elif category == "Fasilitas Pendidikan" %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#26416c" class="bi bi-book-fill"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783" />
+                </svg>
+                {% elif category == "Fasilitas Transportasi" %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#2ad587" class="bi bi-bus-front"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0m8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-6-1a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2zm1-6c-1.876 0-3.426.109-4.552.226A.5.5 0 0 0 3 4.723v3.554a.5.5 0 0 0 .448.497C4.574 8.891 6.124 9 8 9s3.426-.109 4.552-.226A.5.5 0 0 0 13 8.277V4.723a.5.5 0 0 0-.448-.497A44 44 0 0 0 8 4m0-1c-1.837 0-3.353.107-4.448.22a.5.5 0 1 1-.104-.994A44 44 0 0 1 8 2c1.876 0 3.426.109 4.552.226a.5.5 0 1 1-.104.994A43 43 0 0 0 8 3" />
+                  <path
+                    d="M15 8a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1V2.64c0-1.188-.845-2.232-2.064-2.372A44 44 0 0 0 8 0C5.9 0 4.208.136 3.064.268 1.845.408 1 1.452 1 2.64V4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v3.5c0 .818.393 1.544 1 2v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5V14h6v1.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2c.607-.456 1-1.182 1-2zM8 1c2.056 0 3.71.134 4.822.261.676.078 1.178.66 1.178 1.379v8.86a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 11.5V2.64c0-.72.502-1.301 1.178-1.379A43 43 0 0 1 8 1" />
+                </svg>
+                {% elif category == "Fasilitas Keamanan" %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#671e8f"
+                  class="bi bi-shield-lock-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5" />
+                </svg>
+                {% elif category == "Fasilitas Administrasi Publik" %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#f28908"
+                  class="bi bi-building-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5M4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5" />
+                </svg>
+                {% elif category == "Fasilitas Hiburan" %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#5f9ea0"
+                  class="bi bi-ticket-perforated-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6zm4-1v1h1v-1zm1 3v-1H4v1zm7 0v-1h-1v1zm-1-2h1v-1h-1zm-6 3H4v1h1zm7 1v-1h-1v1zm-7 1H4v1h1zm7 1v-1h-1v1zm-8 1v1h1v-1zm7 1h1v-1h-1z" />
+                </svg>
+                {% endif %}
+
               </div>
-              <h3>Marketing</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
+              <h3>{{ category }}</h3>
+              <h3>{{ count }}</h3>
             </div>
           </div>
-
         </div>
-        <div class="col">
-          <div class="card shadow-sm" style="width: 200; height: 230px;">
-            <div class="card-body text-center d-flex flex-column justify-content-center">
-              <div class="icon mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                </svg>
-              </div>
-              <h3>Marketing</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
-            </div>
-          </div>
 
-        </div>
-        <div class="col">
-          <div class="card shadow-sm" style="width: 200; height: 230px;">
-            <div class="card-body text-center d-flex flex-column justify-content-center">
-              <div class="icon mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                </svg>
-              </div>
-              <h3>Marketing</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
-            </div>
-          </div>
+        {% endfor %}
 
-        </div>
-        <div class="col">
-          <div class="card shadow-sm" style="width: 200; height: 230px;">
-            <div class="card-body text-center d-flex flex-column justify-content-center">
-              <div class="icon mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                </svg>
-              </div>
-              <h3>Marketing</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
-            </div>
-          </div>
 
-        </div>
-        <div class="col">
-          <div class="card shadow-sm" style="width: 200; height: 230px;">
-            <div class="card-body text-center d-flex flex-column justify-content-center">
-              <div class="icon mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                </svg>
-              </div>
-              <h3>Marketing</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
-            </div>
-          </div>
-
-        </div>
-        <div class="col">
-          <div class="card shadow-sm" style="width: 200; height: 230px;">
-            <div class="card-body text-center d-flex flex-column justify-content-center">
-              <div class="icon mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                </svg>
-              </div>
-              <h3>Marketing</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts.</p>
-            </div>
-          </div>
-
-        </div>
 
 
       </div>
@@ -305,14 +274,22 @@ Home
 </section>
 
 
-
-
-
-
-
 <!-- END SECTION FAQ -->
 
+<section>
 
+
+  <div class="container text-center mt-5">
+    <h1 class="header-title">
+      <span class="orange-text">Pemetaan <span class="blue-text">Fasilitas Umum </span></span>
+      <br>
+      <span class="blue-text">Semarang</span>
+    </h1>
+    <p class="statistik mt-4">Statistik Fasilitas</p>
+    <p class="count">{{total_places}}</p>
+  </div>
+
+</section>
 
 
 

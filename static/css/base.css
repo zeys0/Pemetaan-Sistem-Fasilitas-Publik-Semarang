@@ -25,12 +25,13 @@
   
   /* NAVBAR BRAND  */
   
-.navbar-brand .monotype {
+.navbar-brand .navbar-brand-text {
     display: inline-block;
+  
 }
 
 @media (max-width: 768px) {
-    .navbar-brand .monotype {
+    .navbar-brand .navbar-brand-text {
         display: none;
     }
 }  
@@ -211,3 +212,18 @@ html, body {
     background-color: #fafaf9;
   }
 
+  .statistik {
+    font-size: 1.25rem;
+    color: #6c757d;
+  }
+
+  .count {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #5e1ed3;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: #6c757d;
+  }
