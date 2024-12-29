@@ -83,7 +83,7 @@ Home
 <!-- END HEADER -->
 
 
-<!-- Section preview map -->
+<!-- SECTION PREVIEW MAP -->
 
 <section class="container" style="margin-bottom: 40px;" id="JUTAN">
   <div class="text-center" style="margin: 20px 0px 20px 0px;">
@@ -175,8 +175,7 @@ Home
   </div>
 </section>
 
-
-<!-- End Section preview map -->
+<!-- END SECTION PREVIEW MAP -->
 
 
 <!-- SECTION FAQ -->
@@ -297,9 +296,9 @@ Home
 
 <!-- END SECTION FAQ -->
 
+
+<!-- SECTION STATISTIC -->
 <section>
-
-
   <div class="container text-center mt-5">
     <h1 class="header-title">
       <span class="orange-text">Pemetaan <span class="blue-text">Fasilitas Umum </span></span>
@@ -309,14 +308,47 @@ Home
     <p class="statistik mt-4">Statistik Fasilitas</p>
     <p class="count">{{total_places}}</p>
   </div>
-
 </section>
+<!-- END SECTION STASTIOC -->
+
+
+<button id="scrollToTop" title="Go to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-square-fill"
+    viewBox="0 0 16 16">
+    <path
+      d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2zm6.5-4.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 1 0" />
+  </svg>
+</button>
 
 
 
+<script>
+  // Get the button
+  let scrollToTopBtn = document.getElementById("scrollToTop");
 
+  // Show or hide the button based on scroll position
+  window.onscroll = function () {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      scrollToTopBtn.style.display = "block"; // Ensure button is shown
+      setTimeout(() => {
+        scrollToTopBtn.style.opacity = "1"; // Make it visible
+        scrollToTopBtn.style.transform = "scale(1)"; // Scale it to normal size
+      }, 10); // Slight delay before transitioning
+    } else {
+      scrollToTopBtn.style.opacity = "0"; // Fade out
+      scrollToTopBtn.style.transform = "scale(0.8)"; // Shrink slightly
+      setTimeout(() => {
+        scrollToTopBtn.style.display = "none"; // Hide after the animation
+      }, 500); // Match the duration of the opacity transition
+    }
+  };
 
+  // Scroll to top function
+  scrollToTopBtn.onclick = function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
+</script>
 
 <!--akhir headeer-->
 {% endblock %}

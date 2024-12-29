@@ -227,3 +227,33 @@ html, body {
     font-size: 1rem;
     color: #6c757d;
   }
+
+  #scrollToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #5e1ed3;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: none;
+    /* Hide button initially */
+    opacity: 0;
+    /* Initially invisible */
+    transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+    transform: scale(0.8);
+    /* Initial size smaller */
+    border-radius: 5px;
+    /* Optional: Rounded corners for a soft square look */
+  }
+
+  /* Style for the SVG inside the button */
+  #scrollToTop svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+    transition: transform 0.3s ease-in-out;
+
+  }

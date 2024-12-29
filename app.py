@@ -49,10 +49,162 @@ folium.GeoJson(
 preview_map.save("static/preview/preview_map.html")
 
 
+#########################################
+#                                       #
+#       FUNCTION VISUALISASI MAP        #------------------------------------------------------------------------------
+#                                       #
+#########################################
+
+
+# PREVIEW MAP
+def update_map():
+    # Inisialisasi peta
+    marker_cluster = MarkerCluster().add_to(preview_map)
+
+    # Mapping kategori ke warna
+    category_colors = {
+        "Fasilitas Kesehatan": "red",
+        "Fasilitas Pendidikan": "blue",
+        "Fasilitas Transportasi": "green",
+        "Fasilitas Keamanan": "purple",
+        "Fasilitas Administrasi Publik": "orange",
+        "Fasilitas Hiburan": "cadetblue",
+    }
+
+    # Ambil data dari database
+    places = db.places.find()
+    for place in places:
+        # Tentukan warna berdasarkan kategori
+        category = place["category"]
+        marker_color = category_colors.get(
+            category, "gray"
+        )  # Default warna jika kategori tidak dikenal
+
+        # Konten popup dengan responsivitas
+        popup_content = f"""
+        <div style="
+            text-align: start; 
+            font-size: 14px; 
+            max-width: 300px; 
+            width: 100%; 
+            box-sizing: border-box; 
+            padding: 10px; 
+            word-wrap: break-word;">
+            <img src="/static/uploads/{place['image']}" 
+                 alt="{place['name']}" 
+                 style="
+                 width: 100%; 
+                 height: auto; 
+                 max-height: 150px; 
+                 object-fit: cover; 
+                 margin-bottom: 10px; 
+                 border-radius: 5px;">
+            <h4 style="margin: 5px 0; font-size: 16px; font-weight: bold;">{place['name']}</h4>
+            <p style="margin: 5px 0; color: #555; font-size: 14px;">{place['description']}</p>
+            <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Alamat:</p>
+            <p style="margin: 0; color: #555; font-size: 14px;">{place['address']}</p>
+            <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Kategori:</p>
+            <p style="margin: 0; color: #555; font-size: 14px;">{place['category']}</p>
+        </div>
+        """
+
+        # Tambahkan marker dengan warna sesuai kategori
+        folium.Marker(
+            [place["location"]["latitude"], place["location"]["longitude"]],
+            popup=folium.Popup(popup_content, max_width=300),
+            icon=folium.Icon(color=marker_color),
+        ).add_to(marker_cluster)
+
+    # Tambahkan legenda dengan CSS responsif
+    legend_html = """
+    <style>
+        .legend-container {
+            position: fixed;
+            top: 10px; right: 10px; 
+            background-color: white;
+            z-index: 9999;
+            font-size: 14px; 
+            border: 1px solid black; 
+            border-radius: 5px; 
+            padding: 10px;
+            max-width: 200px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        @media (max-width: 768px) {
+            .legend-container {
+                top: auto;
+                bottom: 10px;
+                right: 10px;
+                max-width: 150px;
+                font-size: 12px;
+            }
+        }
+    </style>
+    <div class="legend-container">
+        <b>Keterangan Warna:</b><br>
+        <i style="background:red; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Kesehatan<br>
+        <i style="background:blue; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Pendidikan<br>
+        <i style="background:green; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Transportasi<br>
+        <i style="background:purple; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Keamanan<br>
+        <i style="background:orange; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Administrasi Publik<br>
+        <i style="background:cadetblue; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Hiburan<br>
+    </div>
+    """
+    preview_map.get_root().html.add_child(folium.Element(legend_html))
+
+    # Simpan peta ke file
+    preview_map.save("static/preview/preview_map.html")
+
+
+# DETAIL CATEGORY LOCATION
+@app.route("/location/map/<location_id>")
+def get_location_map(location_id):
+    # Ambil data lokasi berdasarkan ID
+    location = db.places.find_one({"_id": ObjectId(location_id)})
+    if not location:
+        return "Location not found", 404
+
+    # Buat peta menggunakan Folium
+    map_center = [location["location"]["latitude"], location["location"]["longitude"]]
+    location_map = folium.Map(location=map_center, zoom_start=15)
+
+    # Konten popup yang lebih terstruktur
+    popup_content = f"""
+    <div style="text-align: start; font-size: 14px; max-width: 250px;">
+        <img src="/static/uploads/{location['image']}" 
+             alt="{location['name']}" 
+             style="width: 100%; height: auto; max-height: 150px; object-fit: cover; margin-bottom: 10px; border-radius: 5px;">
+        <h4 style="margin: 5px 0; font-size: 16px; font-weight: bold;">{location['name']}</h4>
+        <p style="margin: 5px 0; color: #555; font-size: 14px;">{location['description']}</p>
+        <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Alamat:</p>
+        <p style="margin: 0; color: #555; font-size: 14px;">{location['address']}</p>
+        <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Kategori:</p>
+        <p style="margin: 0; color: #555; font-size: 14px;">{location['category']}</p>
+    </div>
+    """
+
+    # Tambahkan marker untuk lokasi dengan popup yang rapi
+    folium.Marker(
+        map_center,
+        popup=folium.Popup(popup_content, max_width=250),
+        icon=folium.Icon(color="blue"),
+    ).add_to(location_map)
+
+    # Simpan peta sebagai HTML string
+    return location_map._repr_html_()
+
+
+#########################################
+#                                       #
+#      END FUNCTION VISUALISASI MAP     #------------------------------------------------------------------------------
+#                                       #
+#########################################
+
+
 # HOME PAGE
 @app.route("/")
 def home():
-    update_map()  # Tidak menampilkan legenda
+    update_map()
 
     # Hitung jumlah fasilitas berdasarkan kategori
     category_counts = db.places.aggregate(
@@ -318,7 +470,7 @@ def deleteFacility(id):
 
 
 @app.route("/admin/facility/explode", methods=["POST"])
-def resetpesanan():
+def resetPlaces():
     token_receive = request.cookies.get(TOKEN_USER)
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=["HS256"])
@@ -334,8 +486,8 @@ def resetpesanan():
 
         # Menghapus semua data fasilitas dari database
         db.places.delete_many({})
-
-        flash("Reset data berhasil")
+        update_map()
+        flash("Reset data success")
         return redirect(url_for("PlaceManages", user_info=user_info))
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("login"))
@@ -346,151 +498,6 @@ def resetpesanan():
 # ->>>>>>>>>>>>>>>END admin<<<<<<<<<<<<-#------------------------------------------------------------------------------------------
 #                                       #
 #########################################
-
-
-#########################################
-#                                       #
-#       FUNCTION VISUALISASI MAP        #------------------------------------------------------------------------------
-#                                       #
-#########################################
-
-
-# PREVIEW MAP
-def update_map():
-    # Inisialisasi peta
-    marker_cluster = MarkerCluster().add_to(preview_map)
-
-    # Mapping kategori ke warna
-    category_colors = {
-        "Fasilitas Kesehatan": "red",
-        "Fasilitas Pendidikan": "blue",
-        "Fasilitas Transportasi": "green",
-        "Fasilitas Keamanan": "purple",
-        "Fasilitas Administrasi Publik": "orange",
-        "Fasilitas Hiburan": "cadetblue",
-    }
-
-    # Ambil data dari database
-    places = db.places.find()
-    for place in places:
-        # Tentukan warna berdasarkan kategori
-        category = place["category"]
-        marker_color = category_colors.get(
-            category, "gray"
-        )  # Default warna jika kategori tidak dikenal
-
-        # Konten popup dengan responsivitas
-        popup_content = f"""
-        <div style="
-            text-align: start; 
-            font-size: 14px; 
-            max-width: 300px; 
-            width: 100%; 
-            box-sizing: border-box; 
-            padding: 10px; 
-            word-wrap: break-word;">
-            <img src="/static/uploads/{place['image']}" 
-                 alt="{place['name']}" 
-                 style="
-                 width: 100%; 
-                 height: auto; 
-                 max-height: 150px; 
-                 object-fit: cover; 
-                 margin-bottom: 10px; 
-                 border-radius: 5px;">
-            <h4 style="margin: 5px 0; font-size: 16px; font-weight: bold;">{place['name']}</h4>
-            <p style="margin: 5px 0; color: #555; font-size: 14px;">{place['description']}</p>
-            <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Alamat:</p>
-            <p style="margin: 0; color: #555; font-size: 14px;">{place['address']}</p>
-            <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Kategori:</p>
-            <p style="margin: 0; color: #555; font-size: 14px;">{place['category']}</p>
-        </div>
-        """
-
-        # Tambahkan marker dengan warna sesuai kategori
-        folium.Marker(
-            [place["location"]["latitude"], place["location"]["longitude"]],
-            popup=folium.Popup(popup_content, max_width=300),
-            icon=folium.Icon(color=marker_color),
-        ).add_to(marker_cluster)
-
-    # Tambahkan legenda dengan CSS responsif
-    legend_html = """
-    <style>
-        .legend-container {
-            position: fixed;
-            top: 10px; right: 10px; 
-            background-color: white;
-            z-index: 9999;
-            font-size: 14px; 
-            border: 1px solid black; 
-            border-radius: 5px; 
-            padding: 10px;
-            max-width: 200px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        @media (max-width: 768px) {
-            .legend-container {
-                top: auto;
-                bottom: 10px;
-                right: 10px;
-                max-width: 150px;
-                font-size: 12px;
-            }
-        }
-    </style>
-    <div class="legend-container">
-        <b>Keterangan Warna:</b><br>
-        <i style="background:red; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Kesehatan<br>
-        <i style="background:blue; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Pendidikan<br>
-        <i style="background:green; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Transportasi<br>
-        <i style="background:purple; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Keamanan<br>
-        <i style="background:orange; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Administrasi Publik<br>
-        <i style="background:cadetblue; width:10px; height:10px; display:inline-block; border-radius:50%;"></i> Fasilitas Hiburan<br>
-    </div>
-    """
-    preview_map.get_root().html.add_child(folium.Element(legend_html))
-
-    # Simpan peta ke file
-    preview_map.save("static/preview/preview_map.html")
-
-
-# DETAIL CATEGORY LOCATION
-@app.route("/location/map/<location_id>")
-def get_location_map(location_id):
-    # Ambil data lokasi berdasarkan ID
-    location = db.places.find_one({"_id": ObjectId(location_id)})
-    if not location:
-        return "Location not found", 404
-
-    # Buat peta menggunakan Folium
-    map_center = [location["location"]["latitude"], location["location"]["longitude"]]
-    location_map = folium.Map(location=map_center, zoom_start=15)
-
-    # Konten popup yang lebih terstruktur
-    popup_content = f"""
-    <div style="text-align: start; font-size: 14px; max-width: 250px;">
-        <img src="/static/uploads/{location['image']}" 
-             alt="{location['name']}" 
-             style="width: 100%; height: auto; max-height: 150px; object-fit: cover; margin-bottom: 10px; border-radius: 5px;">
-        <h4 style="margin: 5px 0; font-size: 16px; font-weight: bold;">{location['name']}</h4>
-        <p style="margin: 5px 0; color: #555; font-size: 14px;">{location['description']}</p>
-        <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Alamat:</p>
-        <p style="margin: 0; color: #555; font-size: 14px;">{location['address']}</p>
-        <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Kategori:</p>
-        <p style="margin: 0; color: #555; font-size: 14px;">{location['category']}</p>
-    </div>
-    """
-
-    # Tambahkan marker untuk lokasi dengan popup yang rapi
-    folium.Marker(
-        map_center,
-        popup=folium.Popup(popup_content, max_width=250),
-        icon=folium.Icon(color="blue"),
-    ).add_to(location_map)
-
-    # Simpan peta sebagai HTML string
-    return location_map._repr_html_()
 
 
 if __name__ == "__main__":
