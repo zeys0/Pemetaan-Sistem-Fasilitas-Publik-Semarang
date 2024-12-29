@@ -23,27 +23,48 @@ Home
       </style>
 
       <!-- Search Bar Section -->
+      <!-- Search Bar Section -->
       <div class="d-flex gap-3 mb-4">
-        <div class="input-group input-group-lg justify-content-center justify-content-lg-start ">
+        <div class="input-group input-group-lg justify-content-center justify-content-lg-start">
           <div class="input-group-prepend">
-            <select class="form-control">
+            <select id="category-select" class="form-control">
               <option value="">Pilih Kategori</option>
-              <option value="kesehatan">Fasilitas Kesehatan</option>
-              <option value="pendidikan">Fasilitas Pendidikan</option>
-              <option value="transportasi">Fasilitas Transportasi</option>
-              <option value="keamanan">Fasilitas Keamanan</option>
-              <option value="pelayanan_umum">Fasilitas Pelayanan Umum</option>
-              <option value="hiburan_olahraga">Fasilitas Hiburan dan Olahraga</option>
+              <option value="Fasilitas%20Kesehatan">Fasilitas Kesehatan</option>
+              <option value="Fasilitas%20Pendidikan">Fasilitas Pendidikan</option>
+              <option value="Fasilitas%20Transportasi">Fasilitas Transportasi</option>
+              <option value="Fasilitas%20Keamanan">Fasilitas Keamanan</option>
+              <option value="Fasilitas%20Pelayanan%20Umum">Fasilitas Pelayanan Umum</option>
+              <option value="Fasilitas%20Hiburan">Fasilitas Hiburan</option>
             </select>
-          </div>
 
+          </div>
           <div class="input-group-append">
-            <button class="btn btn-primary px-4 shadow">Cari</button>
+            <button id="search-button" class="btn btn-primary px-4 shadow">Cari</button>
           </div>
         </div>
       </div>
+
     </div>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const categorySelect = document.getElementById("category-select");
+        const searchButton = document.getElementById("search-button");
+
+        searchButton.addEventListener("click", function () {
+          const selectedCategory = categorySelect.value;
+
+          if (selectedCategory) {
+            // Arahkan ke halaman berdasarkan kategori
+            window.location.href = `/location/${selectedCategory}`;
+          } else {
+            // Jika tidak ada kategori dipilih, beri peringatan
+            alert("Silakan pilih kategori terlebih dahulu!");
+          }
+        });
+      });
+
+    </script>
     <!-- Image Section (Added to balance the layout) -->
     <div class="d-none d-lg-block">
       <img src="{{ url_for('static', filename='images/img1.png') }}" alt="Fasilitas Umum"

@@ -23,17 +23,19 @@
         <!-- Container to hold all cards -->
         <div id="locations-container" class="row">
             {% for location in locations %}
-            <div class="col-md-4 mb-3 location-card"
+            <div class="col-md-4 mb-3 location-card" data-id="{{ location._id }}"
                 style="display: {% if loop.index <= 3 %}block{% else %}none{% endif %}">
                 <div class="card shadow-sm h-100">
-                    <img src="{{ url_for('static', filename='images/img1.png') }}" alt="">
-                    <div class="card-body text-center">
+                    <img src="{{ url_for('static', filename='uploads/' + location.image) }}" height="250px" width="100%"
+                        alt="{{location.name}}">
+                    <div class="card-body">
                         <h5 class="card-title text-dark">{{ location.name }}</h5>
                         <p class="card-text text-muted">{{ location.address }}</p>
                     </div>
                     <button class="btn btn-primary">Detail</button>
                 </div>
             </div>
+
             {% endfor %}
         </div>
 
@@ -46,25 +48,34 @@
     </div>
 </div>
 
-<!-- JavaScript to handle See More functionality -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var cards = document.querySelectorAll('.location-card');
-        var seeMoreButton = document.getElementById('see-more-btn');
 
-        // Handle click on "See More"
-        if (seeMoreButton) {
-            seeMoreButton.addEventListener('click', function () {
-                // Menampilkan semua card yang tersembunyi
-                cards.forEach(function (card, index) {
-                    if (index >= 3) {
-                        card.style.display = 'block';
-                    }
-                });
-                // Sembunyikan tombol "See More" setelah diklik
-                seeMoreButton.style.display = 'none';
-            });
-        }
-    });
-</script>
+<!-- Modal untuk detail lokasi -->
+<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="locationModalLabel">Location Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Informasi lokasi -->
+                <h4 id="modal-location-name"></h4>
+                <p id="modal-location-address" class="text-muted"></p>
+                <!-- Container untuk peta -->
+                <div class="map-container" style="width: 100%; height: 500px; margin-top: 20px;">
+                    <iframe id="modal-map" src="" width="100%" height="100%" style="border: none;"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="{{ url_for('static', filename='js/location.js') }}"></script>
+
+
 {% endblock %}
