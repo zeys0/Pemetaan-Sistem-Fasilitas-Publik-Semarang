@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 import hashlib
 from flask_paginate import Pagination
 from bson import ObjectId
-
+from bson.errors import InvalidId
 
 app = Flask(__name__)
 dotenv_path = join(dirname(__file__), ".env")
@@ -82,31 +82,68 @@ def update_map():
 
         # Konten popup dengan responsivitas
         popup_content = f"""
-        <div style="
-            text-align: start; 
-            font-size: 14px; 
-            max-width: 300px; 
-            width: 100%; 
-            box-sizing: border-box; 
-            padding: 10px; 
-            word-wrap: break-word;">
-            <img src="/static/uploads/{place['image']}" 
-                 alt="{place['name']}" 
-                 style="
-                 width: 100%; 
-                 height: auto; 
-                 max-height: 150px; 
-                 object-fit: cover; 
-                 margin-bottom: 10px; 
-                 border-radius: 5px;">
-            <h4 style="margin: 5px 0; font-size: 16px; font-weight: bold;">{place['name']}</h4>
-            <p style="margin: 5px 0; color: #555; font-size: 14px;">{place['description']}</p>
-            <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Alamat:</p>
-            <p style="margin: 0; color: #555; font-size: 14px;">{place['address']}</p>
-            <p style="margin: 5px 0; font-size: 14px; font-weight: bold; color: #333;">Kategori:</p>
-            <p style="margin: 0; color: #555; font-size: 14px;">{place['category']}</p>
-        </div>
-        """
+<div class="popup-container">
+    <style>
+        /* Gaya utama untuk card */
+        .popup-container {{
+            text-align: start;
+            font-size: 14px;
+            width: 280px; /* Ukuran fix untuk semua perangkat */
+            max-width: 100%; /* Agar tidak melampaui lebar layar */
+            box-sizing: border-box;
+            padding: 10px;
+            word-wrap: break-word;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 0 auto; /* Pusatkan card pada layar kecil */
+        }}
+        /* Gambar di dalam card */
+        .popup-container img {{
+            width: 100%; /* Sesuaikan gambar dengan card */
+            height: 150px; /* Tinggi tetap untuk konsistensi */
+            object-fit: cover; /* Menjaga proporsi gambar */
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }}
+        /* Judul card */
+        .popup-container h4 {{
+            margin: 5px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }}
+        /* Paragraf */
+        .popup-container p {{
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }}
+        /* Responsivitas tambahan untuk perangkat kecil */
+        @media (max-width: 600px) {{
+            .popup-container {{
+                width: 90%; /* Maksimalkan card di layar kecil */
+                max-width: 300px; /* Tetap ada batas maksimal */
+            }}
+            .popup-container img {{
+                height: 140px; /* Tinggi gambar sedikit dikurangi di layar kecil */
+            }}
+            .popup-container h4 {{
+                font-size: 14px;
+            }}
+            .popup-container p {{
+                font-size: 12px;
+            }}
+        }}
+    </style>
+    <img src="/static/uploads/{place['image']}" alt="{place['name']}">
+    <h4>{place['name']}</h4>
+    <p>{place['description']}</p>
+    <p style="font-weight: bold; color: #333;">Alamat:</p>
+    <p>{place['address']}</p>
+    <p style="font-weight: bold; color: #333;">Kategori:</p>
+    <p>{place['category']}</p>
+</div>
+"""
 
         # Tambahkan marker dengan warna sesuai kategori
         folium.Marker(
@@ -457,13 +494,24 @@ def editFacility(id):
 
 @app.route("/facility/delete/<id>", methods=["POST"])
 def deleteFacility(id):
-    facility = db.places.find_one({"_id": ObjectId(id)})
-    target = f"static/uploads/{facility['image']}"
+    try:
+        object_id = ObjectId(id)
+    except InvalidId:
+        flash("Invalid facility ID.")
+        return redirect(url_for("PlaceManages"))
 
-    if os.path.exists(target):
-        os.remove(target)
+    facility = db.places.find_one({"_id": object_id})
+    if not facility:
+        flash("Facility not found.")
+        return redirect(url_for("PlaceManages"))
 
-    db.places.delete_one({"_id": ObjectId(id)})
+    image_name = facility.get("image")
+    if image_name:
+        target = f"static/uploads/{image_name}"
+        if os.path.exists(target):
+            os.remove(target)
+
+    db.places.delete_one({"_id": object_id})
     update_map()
     flash("Facility data was successfully deleted.")
     return redirect(url_for("PlaceManages"))
